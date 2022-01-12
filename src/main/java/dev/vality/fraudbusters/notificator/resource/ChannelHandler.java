@@ -39,7 +39,7 @@ public class ChannelHandler implements ChannelServiceSrv.Iface {
         FilterDto filterDto = filterConverter.convert(page, filter);
         var channels = channelDao.getAll(filterDto);
         log.info("ChannelHandler get all channels: {}", channels);
-        List<dev.vality.damsel.fraudbusters_notificator.Channel> result = channels.stream()
+        List<Channel> result = channels.stream()
                 .map(channelConverter::toSource)
                 .collect(Collectors.toList());
         ChannelListResponse channelListResponse = new ChannelListResponse()
