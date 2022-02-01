@@ -1,7 +1,7 @@
 package dev.vality.fraudbusters.notificator.config;
 
-import com.rbkmoney.woody.thrift.impl.http.THSpawnClientBuilder;
 import dev.vality.fraudbusters.warehouse.QueryServiceSrv;
+import dev.vality.woody.thrift.impl.http.THSpawnClientBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
