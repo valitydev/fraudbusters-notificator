@@ -5,13 +5,6 @@ management:
     flag: false
   server:
     port: '@management.port@'
-  metrics:
-    export:
-      statsd:
-        flavor: etsy
-        enabled: false
-      prometheus:
-        enabled: false
   endpoint:
     health:
       show-details: always
