@@ -1,7 +1,7 @@
 package dev.vality.fraudbusters.notificator.resource;
 
-import com.rbkmoney.woody.thrift.impl.http.THServiceBuilder;
 import dev.vality.damsel.fraudbusters_notificator.NotificationServiceSrv;
+import dev.vality.woody.thrift.impl.http.THServiceBuilder;
 import lombok.RequiredArgsConstructor;
 
 import javax.servlet.*;
