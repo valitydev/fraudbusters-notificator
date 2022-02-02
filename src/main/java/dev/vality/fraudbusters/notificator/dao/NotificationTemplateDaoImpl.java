@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.notificator.dao;
 
-import com.rbkmoney.mapper.RecordRowMapper;
+import dev.vality.mapper.RecordRowMapper;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.NotificationTemplate;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationTemplateRecord;
 import org.jooq.SelectConditionStep;
