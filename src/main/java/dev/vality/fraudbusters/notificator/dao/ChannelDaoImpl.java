@@ -1,10 +1,10 @@
 package dev.vality.fraudbusters.notificator.dao;
 
-import com.rbkmoney.mapper.RecordRowMapper;
 import dev.vality.fraudbusters.notificator.dao.domain.enums.ChannelType;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Channel;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ChannelRecord;
 import dev.vality.fraudbusters.notificator.service.dto.FilterDto;
+import dev.vality.mapper.RecordRowMapper;
 import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.jdbc.core.RowMapper;

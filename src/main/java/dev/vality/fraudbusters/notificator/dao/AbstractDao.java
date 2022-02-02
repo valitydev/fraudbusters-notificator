@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.notificator.dao;
 
-import com.rbkmoney.dao.impl.AbstractGenericDao;
+import dev.vality.dao.impl.AbstractGenericDao;
 
 import javax.sql.DataSource;
 

@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.notificator.dao;
 
-import com.rbkmoney.mapper.RecordRowMapper;
+import dev.vality.mapper.RecordRowMapper;
 import dev.vality.fraudbusters.notificator.dao.domain.enums.ReportStatus;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Report;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ReportRecord;
