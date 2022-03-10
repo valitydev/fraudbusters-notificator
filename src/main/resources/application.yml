@@ -71,4 +71,3 @@ warehouse:
 testcontainers:
   postgresql:
     tag: '11.4'
-
