@@ -27,9 +27,9 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
-    url: @db.url@
-    username: @db.user@
-    password: @db.password@
+    url: '@db.url@'
+    username: '@db.user@'
+    password: '@db.password@'
     hikari:
       idle-timeout: 30000
       maximum-pool-size: 10
@@ -55,6 +55,8 @@ mail:
     auth: false
     timeout: 30000
     from-address: "NotificationService@rbkmoney.com"
+    ssl:
+      enable: false
     starttls:
       enable: true
 ---
@@ -69,4 +71,3 @@ warehouse:
 testcontainers:
   postgresql:
     tag: '11.4'
-

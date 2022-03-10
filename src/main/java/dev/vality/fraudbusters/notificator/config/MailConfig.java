@@ -15,6 +15,7 @@ public class MailConfig {
     public Properties mailProperties(@Value("${mail.protocol}") String protocol,
                                      @Value("${mail.smtp.auth}") boolean smtpsAuth,
                                      @Value("${mail.smtp.starttls.enable}") boolean starttls,
+                                     @Value("${mail.smtp.ssl.enable}") boolean sslEnable,
                                      @Value("${mail.smtp.timeout}") int timeout,
                                      @Value("${mail.host}") String host,
                                      @Value("${mail.port}") int port,
@@ -24,6 +25,7 @@ public class MailConfig {
         properties.put("mail.smtp.starttls.enable", starttls);
         properties.put("mail.smtp.connectiontimeout", timeout);
         properties.put("mail.smtp.timeout", timeout);
+        properties.put("mail.smtp.ssl.enable", sslEnable);
         properties.put("mail.transport.protocol", protocol);
         properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", port);
