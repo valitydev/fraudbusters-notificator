@@ -55,6 +55,8 @@ mail:
     auth: false
     timeout: 30000
     from-address: "NotificationService@rbkmoney.com"
+    ssl:
+      enable: false
     starttls:
       enable: true
 ---
