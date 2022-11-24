@@ -46,13 +46,14 @@ mail:
   password: ""
   from: no-reply@rbkmoney.com
   protocol: smtp
+  factory: javax.net.ssl.SSLSocketFactory
   retry:
     max:
       attempts: 3
     backoff:
       period: 1000
   smtp:
-    auth: false
+    auth: true
     timeout: 30000
     from-address: "NotificationService@rbkmoney.com"
     ssl:

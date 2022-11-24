@@ -19,7 +19,8 @@ public class MailConfig {
                                      @Value("${mail.smtp.timeout}") int timeout,
                                      @Value("${mail.host}") String host,
                                      @Value("${mail.port}") int port,
-                                     @Value("${mail.username}") String username) {
+                                     @Value("${mail.username}") String username,
+                                     @Value("${mail.factory}") String factory) {
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", smtpsAuth);
         properties.put("mail.smtp.starttls.enable", starttls);
@@ -30,6 +31,8 @@ public class MailConfig {
         properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", port);
         properties.put("mail.username", username);
+        properties.put("mail.smtp.socketFactory.port", port);
+        properties.put("mail.smtp.socketFactory.class", factory);
         return properties;
     }
 
