@@ -12,4 +12,4 @@ on:
 
 jobs:
   lint:
-    uses: valitydev/base-workflows/.github/workflows/basic-linters.yml@v1
+    uses: valitydev/java-workflows/.github/workflows/basic-linters.yml@v1
