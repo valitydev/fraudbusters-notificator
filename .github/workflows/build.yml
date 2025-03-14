@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    uses: empayre/java-workflow/.github/workflows/maven-service-build.yml@v4
+    uses: valitydev/java-workflow/.github/workflows/maven-service-build.yml@v4
     secrets:
       action-fetch-token: ${{ secrets.ACTIONS_FETCH_TOKEN }}
       github-pkg-ro-pat: ${{ secrets.GH_PACKAGES_RO_PAT2 }}
