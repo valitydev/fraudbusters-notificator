@@ -1,11 +1,13 @@
-name: Deploy Docker Image
+name: Maven Deploy Artifact
 
 on:
-  push:
+  pull_request:
     branches:
       - 'master'
       - 'main'
-      - 'epic/**'
+  push:
+    branches:
+      - 'rc/**'
 
 jobs:
   deploy:
