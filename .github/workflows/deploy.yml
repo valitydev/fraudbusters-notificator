@@ -4,12 +4,12 @@ on:
   push:
     branches:
       - 'master'
+      - 'main'
+      - 'epic/**'
 
 jobs:
   build-and-deploy:
-    uses: valitydev/java-workflow/.github/workflows/maven-service-deploy.yml@v2
-    with:
-      ignore-coverage: true
+    uses: valitydev/java-workflow/.github/workflows/maven-service-deploy.yml@v3
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
       mm-webhook-url: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
