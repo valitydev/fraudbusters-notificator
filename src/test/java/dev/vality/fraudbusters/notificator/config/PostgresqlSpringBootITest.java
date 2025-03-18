@@ -1,7 +1,7 @@
 package dev.vality.fraudbusters.notificator.config;
 
-import com.rbkmoney.testcontainers.annotations.DefaultSpringBootTest;
-import com.rbkmoney.testcontainers.annotations.postgresql.PostgresqlTestcontainerSingleton;
+import dev.vality.testcontainers.annotations.DefaultSpringBootTest;
+import dev.vality.testcontainers.annotations.postgresql.PostgresqlTestcontainerSingleton;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

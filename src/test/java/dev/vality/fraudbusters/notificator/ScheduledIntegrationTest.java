@@ -1,7 +1,5 @@
 package dev.vality.fraudbusters.notificator;
 
-import com.rbkmoney.testcontainers.annotations.DefaultSpringBootTest;
-import com.rbkmoney.testcontainers.annotations.postgresql.PostgresqlTestcontainer;
 import dev.vality.fraudbusters.notificator.dao.NotificationDao;
 import dev.vality.fraudbusters.notificator.dao.NotificationTemplateDao;
 import dev.vality.fraudbusters.notificator.dao.ReportNotificationDao;
@@ -9,6 +7,8 @@ import dev.vality.fraudbusters.notificator.domain.ReportModel;
 import dev.vality.fraudbusters.notificator.serializer.QueryResultSerde;
 import dev.vality.fraudbusters.notificator.service.QueryService;
 import dev.vality.fraudbusters.notificator.service.iface.NotificationService;
+import dev.vality.testcontainers.annotations.DefaultSpringBootTest;
+import dev.vality.testcontainers.annotations.postgresql.PostgresqlTestcontainer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.mock.mockito.MockBean;
