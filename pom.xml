@@ -6,7 +6,7 @@
     <parent>
         <groupId>dev.vality</groupId>
         <artifactId>service-parent-pom</artifactId>
-        <version>2.0.3</version>
+        <version>3.0.2</version>
     </parent>
 
     <artifactId>fraudbusters-notificator</artifactId>
@@ -16,12 +16,12 @@
     <name>fraudbusters-notificator</name>
 
     <properties>
+        <java.version>21</java.version>
         <server.port>8022</server.port>
         <management.port>8023</management.port>
         <server.rest.port>8080</server.rest.port>
         <exposed.ports>${server.port} ${management.port} ${server.rest.port}</exposed.ports>
         <dockerfile.registry>${env.REGISTRY}</dockerfile.registry>
-        <java.version>17</java.version>
         <db.name>fb_notificator</db.name>
         <db.port>5432</db.port>
         <db.url>jdbc:postgresql://localhost:${db.port}/${db.name}</db.url>
@@ -31,7 +31,6 @@
         <db.common.lib.version>0.0.2-SNAPSHOT</db.common.lib.version>
         <shedlock-provider-jdbc-template.version>4.24.0</shedlock-provider-jdbc-template.version>
         <warehouse.proto.version>1.12-afdcd48</warehouse.proto.version>
-        <testcontainers.annotations.version>1.3.0</testcontainers.annotations.version>
         <fraudbusters.notificator.proto.version>1.27-4907168</fraudbusters.notificator.proto.version>
     </properties>
 
@@ -115,8 +114,8 @@
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -178,16 +177,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.rbkmoney</groupId>
+            <groupId>dev.vality</groupId>
             <artifactId>testcontainers-annotations</artifactId>
-            <version>${testcontainers.annotations.version}</version>
+            <version>1.4.3</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.rbkmoney</groupId>
-                    <artifactId>payout-manager-proto</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 
@@ -217,11 +210,19 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.2.6.RELEASE</version>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
+                <version>${flyway.version}</version>
                 <configuration>
                     <url>${db.url}</url>
                     <user>${db.user}</user>
@@ -229,9 +230,6 @@
                     <schemas>
                         <schema>${db.schema}</schema>
                     </schemas>
-                    <locations>
-                        <location>filesystem:${project.basedir}/src/main/resources/db/migration</location>
-                    </locations>
                 </configuration>
                 <executions>
                     <execution>
@@ -242,6 +240,13 @@
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${postgresql.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.jooq</groupId>
@@ -303,19 +308,12 @@
                     </execution>
                     <execution>
                         <id>PG_server_stop</id>
-                        <phase>generate-resources</phase>
+                        <phase>compile</phase>
                         <goals>
                             <goal>stop</goal>
                         </goals>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>commons-io</groupId>
-                        <artifactId>commons-io</artifactId>
-                        <version>2.11.0</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
