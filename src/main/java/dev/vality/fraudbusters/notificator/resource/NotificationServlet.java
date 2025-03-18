@@ -4,8 +4,8 @@ import dev.vality.damsel.fraudbusters_notificator.NotificationServiceSrv;
 import dev.vality.woody.thrift.impl.http.THServiceBuilder;
 import lombok.RequiredArgsConstructor;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebServlet;
 import java.io.IOException;
 
 @WebServlet("/notification/v1")

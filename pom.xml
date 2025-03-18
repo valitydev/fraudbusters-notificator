@@ -120,11 +120,16 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>1.18.32</version>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>10.18.2</version>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -220,6 +225,41 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>dev.vality.maven.plugins</groupId>
+                <artifactId>pg-embedded-plugin</artifactId>
+                <version>1.0.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>io.zonky.test</groupId>
+                        <artifactId>embedded-postgres</artifactId>
+                        <version>2.0.3</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <port>${db.port}</port>
+                    <dbName>${db.name}</dbName>
+                    <schemas>
+                        <schema>${db.schema}</schema>
+                    </schemas>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>PG_server_start</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>PG_server_stop</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>${flyway.version}</version>
@@ -251,6 +291,23 @@
             <plugin>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
+                <version>${jooq.version}</version>
+                <executions>
+                    <execution>
+                        <id>gen-src</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>${postgresql.version}</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <jdbc>
                         <driver>org.postgresql.Driver</driver>
@@ -268,62 +325,25 @@
                         <database>
                             <name>org.jooq.meta.postgres.PostgresDatabase</name>
                             <includes>.*</includes>
-                            <excludes>schema_version|flyway_schema_history</excludes>
+                            <excludes>schema_version|flyway_schema_history|shedlock.*</excludes>
                             <inputSchema>${db.schema}</inputSchema>
                         </database>
                         <target>
-                            <packageName>dev.vality.fraudbusters.notificator.dao.domain</packageName>
+                            <packageName>com.empayre.backoffice.netting.manager.domain</packageName>
                             <directory>target/generated-sources/jooq</directory>
                         </target>
                     </generator>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>gen-src</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>dev.vality.maven.plugins</groupId>
-                <artifactId>pg-embedded-plugin</artifactId>
-                <version>2.0.0</version>
-                <configuration>
-                    <port>${db.port}</port>
-                    <dbName>${db.name}</dbName>
-                    <schemas>
-                        <schema>${db.schema}</schema>
-                    </schemas>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>PG_server_start</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>start</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>PG_server_stop</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-remote-resources-plugin</artifactId>
-                <version>1.6.0</version>
+                <version>3.0.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.maven.shared</groupId>
                         <artifactId>maven-filtering</artifactId>
-                        <version>1.3</version>
+                        <version>3.3.0</version>
                     </dependency>
                 </dependencies>
                 <configuration>
