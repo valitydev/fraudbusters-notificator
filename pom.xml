@@ -38,7 +38,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>30.1.1-jre</version>
+            <version>33.2.1-jre</version>
         </dependency>
 
         <!--rbkmoney-->
@@ -49,17 +49,11 @@
         </dependency>
         <dependency>
             <groupId>dev.vality</groupId>
-            <artifactId>shared-resources</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>dev.vality</groupId>
             <artifactId>db-common-lib</artifactId>
         </dependency>
         <dependency>
             <groupId>dev.vality.geck</groupId>
             <artifactId>serializer</artifactId>
-            <version>1.0.2</version>
         </dependency>
         <dependency>
             <groupId>dev.vality</groupId>
@@ -124,7 +118,11 @@
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
+            <artifactId>flyway-database-postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -134,12 +132,6 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq</artifactId>
-            <version>${jooq.version}</version>
         </dependency>
         <dependency>
             <groupId>net.javacrumbs.shedlock</groupId>
@@ -209,26 +201,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>dev.vality.maven.plugins</groupId>
                 <artifactId>pg-embedded-plugin</artifactId>
                 <version>2.0.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>io.zonky.test</groupId>
-                        <artifactId>embedded-postgres</artifactId>
-                        <version>2.1.0</version>
-                    </dependency>
-                </dependencies>
                 <configuration>
                     <port>${db.port}</port>
                     <dbName>${db.name}</dbName>
@@ -246,7 +223,7 @@
                     </execution>
                     <execution>
                         <id>PG_server_stop</id>
-                        <phase>compile</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>stop</goal>
                         </goals>
@@ -256,7 +233,6 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>${flyway.version}</version>
                 <configuration>
                     <url>${db.url}</url>
                     <user>${db.user}</user>
@@ -268,7 +244,7 @@
                 <executions>
                     <execution>
                         <id>migrate</id>
-                        <phase>generate-sources</phase>
+                        <phase>initialize</phase>
                         <goals>
                             <goal>migrate</goal>
                         </goals>
@@ -285,23 +261,6 @@
             <plugin>
                 <groupId>org.jooq</groupId>
                 <artifactId>jooq-codegen-maven</artifactId>
-                <version>${jooq.version}</version>
-                <executions>
-                    <execution>
-                        <id>gen-src</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.postgresql</groupId>
-                        <artifactId>postgresql</artifactId>
-                        <version>${postgresql.version}</version>
-                    </dependency>
-                </dependencies>
                 <configuration>
                     <jdbc>
                         <driver>org.postgresql.Driver</driver>
@@ -319,15 +278,26 @@
                         <database>
                             <name>org.jooq.meta.postgres.PostgresDatabase</name>
                             <includes>.*</includes>
-                            <excludes>schema_version|flyway_schema_history|shedlock.*</excludes>
+                            <excludes>
+                                schema_version|.*func|get_adjustment.*|get_cashflow.*|get_payment.*|get_payout.*|get_refund.*
+                            </excludes>
                             <inputSchema>${db.schema}</inputSchema>
                         </database>
                         <target>
-                            <packageName>com.empayre.backoffice.netting.manager.domain</packageName>
-                            <directory>target/generated-sources/jooq</directory>
+                            <packageName>dev.vality.daway.domain</packageName>
+                            <directory>target/generated-sources/</directory>
                         </target>
                     </generator>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>gen-src</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
