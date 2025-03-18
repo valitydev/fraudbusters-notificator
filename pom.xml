@@ -41,7 +41,7 @@
             <version>33.2.1-jre</version>
         </dependency>
 
-        <!--rbkmoney-->
+        <!--dev.vality-->
         <dependency>
             <groupId>dev.vality.woody</groupId>
             <artifactId>woody-thrift</artifactId>
@@ -147,6 +147,11 @@
             <groupId>net.javacrumbs.shedlock</groupId>
             <artifactId>shedlock-spring</artifactId>
             <version>${shedlock-provider-jdbc-template.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-semconv</artifactId>
+            <version>1.29.0-alpha</version>
         </dependency>
 
         <!--test-->
