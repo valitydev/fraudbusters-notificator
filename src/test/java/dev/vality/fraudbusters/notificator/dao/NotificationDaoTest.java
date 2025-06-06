@@ -1,20 +1,24 @@
 package dev.vality.fraudbusters.notificator.dao;
 
 import dev.vality.fraudbusters.notificator.TestObjectsFactory;
-import dev.vality.fraudbusters.notificator.config.PostgresqlSpringBootITest;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Notification;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationRecord;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationTemplateRecord;
 import dev.vality.fraudbusters.notificator.service.VaultSecretService;
 import dev.vality.fraudbusters.notificator.service.dto.FilterDto;
+import dev.vality.testcontainers.annotations.postgresql.PostgresqlTestcontainer;
 import org.jooq.DSLContext;
 import org.jooq.Result;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,8 +29,12 @@ import static dev.vality.fraudbusters.notificator.dao.domain.Tables.NOTIFICATION
 import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
-@PostgresqlSpringBootITest
+@PostgresqlTestcontainer
+@SpringBootTest
 public class NotificationDaoTest {
+
+    @Container
+    static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer<>("postgres:14-alpine");
 
     @Autowired
     DSLContext dslContext;

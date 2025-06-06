@@ -15,6 +15,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -26,6 +29,9 @@ import static org.mockito.Mockito.*;
 @PostgresqlTestcontainer
 @SpringBootTest
 public class ScheduledIntegrationTest {
+
+    @Container
+    static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer<>("postgres:14-alpine");
 
     @MockitoBean
     NotificationDao notificationDao;

@@ -1,18 +1,22 @@
 package dev.vality.fraudbusters.notificator.dao;
 
 import dev.vality.fraudbusters.notificator.TestObjectsFactory;
-import dev.vality.fraudbusters.notificator.config.PostgresqlSpringBootITest;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Channel;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ChannelRecord;
 import dev.vality.fraudbusters.notificator.service.VaultSecretService;
 import dev.vality.fraudbusters.notificator.service.dto.FilterDto;
+import dev.vality.testcontainers.annotations.postgresql.PostgresqlTestcontainer;
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,8 +28,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 @ActiveProfiles("test")
-@PostgresqlSpringBootITest
+@PostgresqlTestcontainer
+@SpringBootTest
 class ChannelDaoImplTest {
+
+    @Container
+    static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer<>("postgres:14-alpine");
 
     @Autowired
     DSLContext dslContext;
