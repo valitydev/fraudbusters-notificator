@@ -7,13 +7,15 @@ import dev.vality.fraudbusters.notificator.dao.domain.tables.records.Notificatio
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationTemplateRecord;
 import dev.vality.fraudbusters.notificator.exception.WarehouseQueryException;
 import dev.vality.fraudbusters.notificator.service.QueryService;
+import dev.vality.fraudbusters.notificator.service.VaultSecretService;
 import org.apache.thrift.TException;
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,11 +40,15 @@ class NotificationHandlerTest {
     @Autowired
     private DSLContext dslContext;
 
-    @MockBean
+    @MockitoBean
     private QueryService queryService;
+
+    @MockitoBean
+    private VaultSecretService vaultSecretService;
 
     @BeforeEach
     void setUp() {
+        Mockito.when(vaultSecretService.getBotToken()).thenReturn("test");
         dslContext.deleteFrom(NOTIFICATION).execute();
     }
 

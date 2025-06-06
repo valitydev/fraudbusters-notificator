@@ -5,13 +5,16 @@ import dev.vality.fraudbusters.notificator.config.PostgresqlSpringBootITest;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Notification;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationRecord;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationTemplateRecord;
+import dev.vality.fraudbusters.notificator.service.VaultSecretService;
 import dev.vality.fraudbusters.notificator.service.dto.FilterDto;
 import org.jooq.DSLContext;
 import org.jooq.Result;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,8 +34,12 @@ public class NotificationDaoTest {
     @Autowired
     NotificationDao notificationDao;
 
+    @MockitoBean
+    private VaultSecretService vaultSecretService;
+
     @BeforeEach
     void setUp() {
+        Mockito.when(vaultSecretService.getBotToken()).thenReturn("test");
         dslContext.deleteFrom(NOTIFICATION).execute();
     }
 

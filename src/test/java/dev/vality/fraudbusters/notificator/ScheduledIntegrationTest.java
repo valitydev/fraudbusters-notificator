@@ -6,12 +6,15 @@ import dev.vality.fraudbusters.notificator.dao.ReportNotificationDao;
 import dev.vality.fraudbusters.notificator.domain.ReportModel;
 import dev.vality.fraudbusters.notificator.serializer.QueryResultSerde;
 import dev.vality.fraudbusters.notificator.service.QueryService;
+import dev.vality.fraudbusters.notificator.service.VaultSecretService;
 import dev.vality.fraudbusters.notificator.service.iface.NotificationService;
 import dev.vality.testcontainers.annotations.postgresql.PostgresqlTestcontainer;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -24,21 +27,30 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 public class ScheduledIntegrationTest {
 
-    @MockBean
+    @MockitoBean
     NotificationDao notificationDao;
-    @MockBean
+    @MockitoBean
     ReportNotificationDao reportNotificationDao;
-    @MockBean
+    @MockitoBean
     NotificationTemplateDao notificationTemplateDao;
-    @MockBean
+    @MockitoBean
     QueryService queryService;
-    @MockBean
+    @MockitoBean
     QueryResultSerde queryResultSerde;
-    @MockBean
+    @MockitoBean
     NotificationService notificationService;
-    @MockBean
+
+    @MockitoBean
     @Qualifier("readyForNotifyFilter")
     Predicate<ReportModel> readyForNotifyFilter;
+
+    @MockitoBean
+    private VaultSecretService vaultSecretService;
+
+    @BeforeEach
+    void setUp() {
+        Mockito.when(vaultSecretService.getBotToken()).thenReturn("test");
+    }
 
     @Test
     void scheduleTest() throws InterruptedException {

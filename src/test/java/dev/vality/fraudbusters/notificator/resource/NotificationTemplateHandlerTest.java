@@ -3,11 +3,14 @@ package dev.vality.fraudbusters.notificator.resource;
 import dev.vality.damsel.fraudbusters_notificator.NotificationTemplateListResponse;
 import dev.vality.fraudbusters.notificator.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.config.PostgresqlSpringBootITest;
+import dev.vality.fraudbusters.notificator.service.VaultSecretService;
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static dev.vality.fraudbusters.notificator.dao.domain.Tables.NOTIFICATION;
 import static dev.vality.fraudbusters.notificator.dao.domain.Tables.NOTIFICATION_TEMPLATE;
@@ -23,8 +26,12 @@ class NotificationTemplateHandlerTest {
     @Autowired
     private DSLContext dslContext;
 
+    @MockitoBean
+    private VaultSecretService vaultSecretService;
+
     @BeforeEach
     void setUp() {
+        Mockito.when(vaultSecretService.getBotToken()).thenReturn("test");
         dslContext.deleteFrom(NOTIFICATION).execute();
         dslContext.deleteFrom(NOTIFICATION_TEMPLATE).execute();
     }
@@ -39,6 +46,5 @@ class NotificationTemplateHandlerTest {
         NotificationTemplateListResponse result = notificationTemplateHandler.getAll();
 
         assertEquals(2, result.getNotificationTemplatesSize());
-
     }
 }

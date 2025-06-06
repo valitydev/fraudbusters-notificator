@@ -2,16 +2,16 @@ package dev.vality.fraudbusters.notificator.service.factory;
 
 import dev.vality.fraudbusters.notificator.dao.ChannelDao;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Channel;
-import dev.vality.fraudbusters.notificator.domain.Attachment;
 import dev.vality.fraudbusters.notificator.domain.Message;
 import dev.vality.fraudbusters.notificator.domain.ReportModel;
-import dev.vality.fraudbusters.notificator.exception.UnknownRecipientException;
-import dev.vality.fraudbusters.notificator.serializer.QueryResultSerde;
+import dev.vality.fraudbusters.notificator.utils.AttachmentUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+import static dev.vality.fraudbusters.notificator.utils.ChannelUtils.initRecipient;
 
 @Slf4j
 @Service
@@ -19,8 +19,7 @@ import java.util.Optional;
 public class TelegramFactory {
 
     private final ChannelDao channelDao;
-    private final AttachmentFactory attachmentFactory;
-    private final QueryResultSerde queryResultSerde;
+    private final AttachmentUtils attachmentUtils;
 
     public Optional<Message> create(ReportModel reportModel) {
         String alertChannel = reportModel.getNotification().getChannel();
@@ -35,25 +34,8 @@ public class TelegramFactory {
                 .content(content)
                 .to(initRecipient(channel))
                 .subject(subject)
-                .attachment(initAttachment(reportModel, subject))
+                .attachment(attachmentUtils.initAttachment(reportModel, subject))
                 .build());
     }
 
-    private String[] initRecipient(Channel channel) {
-        String[] split = channel.getDestination().trim().split("\\s*,\\s*");
-        if (split.length == 0) {
-            throw new UnknownRecipientException("Unknown recipient or can't parse: " + channel.getDestination());
-        }
-        return split;
-    }
-
-    private Attachment initAttachment(ReportModel reportModel, String subject) {
-        return queryResultSerde.deserialize(reportModel.getCurrentReport().getResult())
-                .map(queryResult ->
-                        Attachment.builder()
-                                .content(attachmentFactory.create(queryResult.getResults()))
-                                .fileName(attachmentFactory.createNameOfAttachment(subject))
-                                .build())
-                .orElse(null);
-    }
 }

@@ -1,4 +1,4 @@
-package dev.vality.fraudbusters.notificator.service;
+package dev.vality.fraudbusters.notificator.service.sender;
 
 import dev.vality.fraudbusters.notificator.domain.Message;
 import dev.vality.fraudbusters.notificator.service.iface.MailSenderService;

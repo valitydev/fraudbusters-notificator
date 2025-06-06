@@ -72,9 +72,11 @@ warehouse:
 testcontainers:
   postgresql:
     tag: '11.4'
-# Добавить в конец файла
----
+
 telegram:
   bot:
-    token: "YOUR_BOT_TOKEN"
     username: "YourBotUsername"
+
+vault:
+  uri: https://vault.empayre.com:443
+  token: "xxx"

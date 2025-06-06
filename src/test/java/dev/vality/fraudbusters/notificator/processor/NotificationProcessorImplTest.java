@@ -9,15 +9,17 @@ import dev.vality.fraudbusters.notificator.dao.domain.tables.records.Notificatio
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationTemplateRecord;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ReportRecord;
 import dev.vality.fraudbusters.notificator.domain.QueryResult;
-import dev.vality.fraudbusters.notificator.service.MailSenderServiceImpl;
 import dev.vality.fraudbusters.notificator.service.QueryService;
+import dev.vality.fraudbusters.notificator.service.VaultSecretService;
+import dev.vality.fraudbusters.notificator.service.sender.MailSenderServiceImpl;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
 import java.util.Map;
@@ -39,16 +41,19 @@ public class NotificationProcessorImplTest {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-    @MockBean
+    @MockitoBean
     MailSenderServiceImpl mailSenderServiceImpl;
 
-    @MockBean
+    @MockitoBean
     QueryService queryService;
 
+    @MockitoBean
+    private VaultSecretService vaultSecretService;
 
     @BeforeEach
     void setUp() {
         dslContext.deleteFrom(NOTIFICATION).execute();
+        Mockito.when(vaultSecretService.getBotToken()).thenReturn("test");
     }
 
     @Test

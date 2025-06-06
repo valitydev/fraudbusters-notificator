@@ -4,11 +4,13 @@ import dev.vality.fraudbusters.notificator.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.config.PostgresqlSpringBootITest;
 import dev.vality.fraudbusters.notificator.dao.domain.enums.ReportStatus;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ReportRecord;
+import dev.vality.fraudbusters.notificator.service.VaultSecretService;
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -19,6 +21,7 @@ import java.time.LocalDateTime;
 import static dev.vality.fraudbusters.notificator.dao.domain.Tables.REPORT;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -33,9 +36,13 @@ class ReportResourceImplTest {
     @Autowired
     private DSLContext dslContext;
 
+    @MockitoBean
+    public VaultSecretService vaultSecretService;
+
     @BeforeEach
     void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).build();
+        when(vaultSecretService.getBotToken()).thenReturn("test");
     }
 
     @Test

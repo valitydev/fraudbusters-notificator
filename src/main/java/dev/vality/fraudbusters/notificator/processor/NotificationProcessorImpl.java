@@ -17,7 +17,6 @@ import dev.vality.fraudbusters.notificator.service.iface.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -40,9 +39,7 @@ public class NotificationProcessorImpl implements NotificationProcessor {
     private final QueryResultSerde queryResultSerde;
     private final NotificationService notificationService;
     private final Predicate<ReportModel> readyForNotifyFilter;
-
-    @Autowired
-    private ChannelDao channelDao;
+    private final ChannelDao channelDao;
 
     @Override
     @Scheduled(fixedDelayString = "${fixedDelay.in.milliseconds}")
@@ -63,17 +60,7 @@ public class NotificationProcessorImpl implements NotificationProcessor {
         log.info("NotificationProcessorImpl finished process");
     }
 
-    private ReportModel initReportModel(final Notification notification) {
-        Report lastReportByNotification = reportNotificationDao.getLastSendById(notification.getId());
-        NotificationTemplate notificationTemplate = notificationTemplateDao.getById(notification.getTemplateId());
-        return ReportModel.builder()
-                .notification(notification)
-                .notificationTemplate(notificationTemplate)
-                .previousReport(lastReportByNotification)
-                .build();
-    }
-
-    private ReportModel initReportModel(Notification notification, NotificationTemplate notificationTemplate) {
+    private ReportModel initReportModel(Notification notification) {
         Report report = new Report();
         report.setCreatedAt(LocalDateTime.now());
         report.setNotificationId(notification.getId());
@@ -83,7 +70,7 @@ public class NotificationProcessorImpl implements NotificationProcessor {
 
         return ReportModel.builder()
                 .notification(notification)
-                .notificationTemplate(notificationTemplate)
+                .notificationTemplate(notificationTemplateDao.getById(notification.getTemplateId()))
                 .currentReport(report)
                 .channel(channel)
                 .build();

@@ -4,11 +4,15 @@ import dev.vality.fraudbusters.notificator.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.config.PostgresqlSpringBootITest;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Channel;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ChannelRecord;
+import dev.vality.fraudbusters.notificator.service.VaultSecretService;
 import dev.vality.fraudbusters.notificator.service.dto.FilterDto;
 import org.jooq.DSLContext;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +32,14 @@ class ChannelDaoImplTest {
 
     @Autowired
     ChannelDao channelDao;
+
+    @MockitoBean
+    private VaultSecretService vaultSecretService;
+
+    @BeforeEach
+    void setUp() {
+        Mockito.when(vaultSecretService.getBotToken()).thenReturn("test");
+    }
 
     @Test
     void getAll() {
