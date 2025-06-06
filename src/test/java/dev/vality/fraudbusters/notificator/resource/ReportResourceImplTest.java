@@ -41,7 +41,7 @@ class ReportResourceImplTest {
     private DSLContext dslContext;
 
     @MockitoBean
-    public VaultSecretService vaultSecretService;
+    VaultSecretService vaultSecretService;
 
     @BeforeEach
     void setUp() {

@@ -35,7 +35,7 @@ class ChannelHandlerTest {
     private DSLContext dslContext;
 
     @MockitoBean
-    private VaultSecretService vaultSecretService;
+    VaultSecretService vaultSecretService;
 
     @BeforeEach
     void setUp() {

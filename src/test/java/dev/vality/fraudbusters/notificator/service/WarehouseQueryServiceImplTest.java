@@ -32,7 +32,7 @@ class WarehouseQueryServiceImplTest {
     private WarehouseQueryService warehouseQueryService;
 
     @MockitoBean
-    private QueryServiceSrv.Iface queryService;
+    QueryServiceSrv.Iface queryService;
 
     @SneakyThrows
     @Test

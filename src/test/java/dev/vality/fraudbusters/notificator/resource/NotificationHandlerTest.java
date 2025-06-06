@@ -49,10 +49,10 @@ class NotificationHandlerTest {
     private DSLContext dslContext;
 
     @MockitoBean
-    private QueryService queryService;
+    QueryService queryService;
 
     @MockitoBean
-    private VaultSecretService vaultSecretService;
+    VaultSecretService vaultSecretService;
 
     @BeforeEach
     void setUp() {

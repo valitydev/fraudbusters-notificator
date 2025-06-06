@@ -51,7 +51,7 @@ public class ScheduledIntegrationTest {
     Predicate<ReportModel> readyForNotifyFilter;
 
     @MockitoBean
-    private VaultSecretService vaultSecretService;
+    VaultSecretService vaultSecretService;
 
     @BeforeEach
     void setUp() {
