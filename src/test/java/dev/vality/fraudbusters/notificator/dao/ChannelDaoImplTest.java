@@ -103,7 +103,7 @@ class ChannelDaoImplTest {
 
         assertEquals(4, all.size());
         assertIterableEquals(List.of(channel1.getDestination(), channel2.getDestination(), channel3.getDestination(),
-                channel4.getDestination()),
+                        channel4.getDestination()),
                 all.stream()
                         .map(Channel::getDestination)
                         .collect(Collectors.toList()));

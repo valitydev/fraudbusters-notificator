@@ -1,9 +1,9 @@
 package dev.vality.fraudbusters.notificator.dao;
 
-import dev.vality.mapper.RecordRowMapper;
 import dev.vality.fraudbusters.notificator.dao.domain.enums.ReportStatus;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Report;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ReportRecord;
+import dev.vality.mapper.RecordRowMapper;
 import org.jooq.DSLContext;
 import org.jooq.Query;
 import org.jooq.SelectConditionStep;
@@ -49,11 +49,11 @@ public class ReportNotificationDaoImpl extends AbstractDao implements ReportNoti
         SelectConditionStep<ReportRecord> where = dslContext
                 .selectFrom(REPORT)
                 .where(REPORT.ID.eq(
-                        dslContext.select(DSL.max(REPORT.ID))
-                                .from(REPORT)
-                                .where(REPORT.NOTIFICATION_ID.eq(id)
-                                        .and(REPORT.STATUS.eq(ReportStatus.send))
-                                )
+                                dslContext.select(DSL.max(REPORT.ID))
+                                        .from(REPORT)
+                                        .where(REPORT.NOTIFICATION_ID.eq(id)
+                                                .and(REPORT.STATUS.eq(ReportStatus.send))
+                                        )
                         )
                 );
         return fetchOne(where, listRecordRowMapper);

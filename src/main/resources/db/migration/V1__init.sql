@@ -2,11 +2,11 @@ CREATE SCHEMA IF NOT EXISTS fb_notificator;
 
 CREATE TABLE fb_notificator.notification_template
 (
-    id           SERIAL                      NOT NULL,
-    name         CHARACTER VARYING           NOT NULL,
-    type         CHARACTER VARYING           NOT NULL,
-    skeleton     TEXT                        NOT NULL,
-    query_text   CHARACTER VARYING           NOT NULL,
+    id           SERIAL            NOT NULL,
+    name         CHARACTER VARYING NOT NULL,
+    type         CHARACTER VARYING NOT NULL,
+    skeleton     TEXT              NOT NULL,
+    query_text   CHARACTER VARYING NOT NULL,
     basic_params CHARACTER VARYING,
     created_at   TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now(),
     updated_at   TIMESTAMP WITHOUT TIME ZONE,
@@ -23,7 +23,7 @@ CREATE TABLE fb_notificator.notification
     subject     CHARACTER VARYING                  NOT NULL,
     created_at  TIMESTAMP WITHOUT TIME ZONE        NOT NULL DEFAULT now(),
     updated_at  TIMESTAMP WITHOUT TIME ZONE,
-    period      CHARACTER VARYING                  NOT NULL,
+    period CHARACTER VARYING NOT NULL,
     frequency   CHARACTER VARYING                  NOT NULL,
     channel     CHARACTER VARYING                  NOT NULL,
     status      fb_notificator.notification_status NOT NULL,

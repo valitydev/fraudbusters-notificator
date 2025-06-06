@@ -22,12 +22,12 @@ public class ChangeQueryResultFilterTest {
         Report currentReport = new Report();
 
         lastReport.setResult("{\"results\":[{\"t\":\"2019-12-05\",\"metric\":\"166.66666666666666\"," +
-                "\"currency\":\"RUB\",\"shopId\":\"ad8b7bfd-0760-4781-a400-51903ee8e504\"}]}");
+                             "\"currency\":\"RUB\",\"shopId\":\"ad8b7bfd-0760-4781-a400-51903ee8e504\"}]}");
         currentReport.setResult("{\"results\":[{\"t\":\"2019-12-05\",\"metric\":\"166.66666666666666\"," +
-                "\"currency\":\"RUB\",\"shopId\":\"ad8b7bfd-0760-4781-a400-51903ee8e504\"}]}");
+                                "\"currency\":\"RUB\",\"shopId\":\"ad8b7bfd-0760-4781-a400-51903ee8e504\"}]}");
 
         boolean test = changeQueryResultFilter.test(ReportModel.builder()
-                .lastReport(lastReport)
+                .previousReport(lastReport)
                 .currentReport(currentReport)
                 .notification(new Notification())
                 .notificationTemplate(TestObjectsFactory.testNotificationTemplate("shopId,currency"))
@@ -42,14 +42,14 @@ public class ChangeQueryResultFilterTest {
         Report currentReport = new Report();
 
         lastReport.setResult("{\"results\":[{\"t\":\"2019-12-05\",\"metric\":\"166.66666666666666\"," +
-                "\"currency\":\"RUB\",\"shopId\":\"ad8b7bfd-0760-4781-a400-51903ee8e504\"}]}");
+                             "\"currency\":\"RUB\",\"shopId\":\"ad8b7bfd-0760-4781-a400-51903ee8e504\"}]}");
         currentReport.setResult("{\"results\":[{\"t\":\"2019-12-05\",\"metric\":\"166.66666666666666\"," +
-                "\"currency\":\"RUB\",\"shopId\":\"ad8b7bfd-0760-4781-a400-51903ee8e504\"}," +
-                "{\"t\":\"2019-12-05\",\"metric\":\"100\",\"currency\":\"USD\"," +
-                "\"shopId\":\"ad8b7bfd-0760-4781-a400-51903ee8e504\"}]}");
+                                "\"currency\":\"RUB\",\"shopId\":\"ad8b7bfd-0760-4781-a400-51903ee8e504\"}," +
+                                "{\"t\":\"2019-12-05\",\"metric\":\"100\",\"currency\":\"USD\"," +
+                                "\"shopId\":\"ad8b7bfd-0760-4781-a400-51903ee8e504\"}]}");
 
         boolean test = changeQueryResultFilter.test(ReportModel.builder()
-                .lastReport(lastReport)
+                .previousReport(lastReport)
                 .currentReport(currentReport)
                 .notification(new Notification())
                 .notificationTemplate(TestObjectsFactory.testNotificationTemplate("shopId,currency"))

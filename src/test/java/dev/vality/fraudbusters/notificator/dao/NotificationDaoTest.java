@@ -235,7 +235,7 @@ public class NotificationDaoTest {
 
         assertEquals(4, all.size());
         assertIterableEquals(List.of(notification1.getSubject(), notification2.getSubject(), notification3.getSubject(),
-                notification4.getSubject()),
+                        notification4.getSubject()),
                 all.stream()
                         .map(Notification::getSubject)
                         .collect(Collectors.toList()));

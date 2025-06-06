@@ -39,7 +39,7 @@ public class NotificationHandler implements NotificationServiceSrv.Iface {
             throw new NotificationServiceException()
                     .setCode(VALIDATION_ERROR)
                     .setReason("Error while validate notification, errors: " +
-                            String.join(", ", validationResult.getErrors()));
+                               String.join(", ", validationResult.getErrors()));
         }
         var savedNotification = notificationDao.insert(notificationConverter.toTarget(notification));
         log.info("NotificationHandler create notification: {}", savedNotification);
@@ -90,7 +90,7 @@ public class NotificationHandler implements NotificationServiceSrv.Iface {
         NotificationListResponse notificationListResponse = new NotificationListResponse()
                 .setNotifications(result);
         if (notifications.size() == filterDto.getSize()) {
-            var lastNotification = notifications.get(notifications.size() - 1);
+            var lastNotification = notifications.getLast();
             notificationListResponse.setContinuationId(lastNotification.getId());
         }
         return notificationListResponse;

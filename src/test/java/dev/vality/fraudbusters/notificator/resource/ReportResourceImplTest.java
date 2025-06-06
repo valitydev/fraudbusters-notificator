@@ -55,9 +55,9 @@ class ReportResourceImplTest {
                 .execute();
 
         mockMvc.perform(MockMvcRequestBuilders.get("/reports")
-                .param("status", "send")
-                .param("from", LocalDateTime.now().toString())
-                .accept(MediaType.APPLICATION_JSON))
+                        .param("status", "send")
+                        .param("from", LocalDateTime.now().toString())
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].result", is(report1.getResult())))
                 .andExpect(status().isOk());

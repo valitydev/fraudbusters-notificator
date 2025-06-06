@@ -1,10 +1,10 @@
 package dev.vality.fraudbusters.notificator.dao;
 
-import dev.vality.mapper.RecordRowMapper;
 import dev.vality.fraudbusters.notificator.dao.domain.enums.NotificationStatus;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Notification;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationRecord;
 import dev.vality.fraudbusters.notificator.service.dto.FilterDto;
+import dev.vality.mapper.RecordRowMapper;
 import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.jdbc.core.RowMapper;
