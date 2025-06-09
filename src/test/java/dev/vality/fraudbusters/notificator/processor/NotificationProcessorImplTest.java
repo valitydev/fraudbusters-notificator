@@ -90,7 +90,8 @@ public class NotificationProcessorImplTest {
         notificationProcessor.process();
 
         notificationByStatus = dslContext.selectFrom(REPORT).where(REPORT.ID.in(
-                        dslContext.select(DSL.max(REPORT.ID)).from(REPORT).where(REPORT.STATUS.eq(ReportStatus.created))))
+                        dslContext.select(DSL.max(REPORT.ID)).from(REPORT)
+                                .where(REPORT.STATUS.eq(ReportStatus.created))))
                 .fetch();
         assertEquals(0L, notificationByStatus.size());
 
@@ -99,7 +100,8 @@ public class NotificationProcessorImplTest {
         notificationProcessor.process();
 
         notificationByStatus = dslContext.selectFrom(REPORT).where(REPORT.ID.in(
-                        dslContext.select(DSL.max(REPORT.ID)).from(REPORT).where(REPORT.STATUS.eq(ReportStatus.skipped))))
+                        dslContext.select(DSL.max(REPORT.ID)).from(REPORT)
+                                .where(REPORT.STATUS.eq(ReportStatus.skipped))))
                 .fetch();
         assertEquals(0L, notificationByStatus.size());
         verify(mailSenderService, times(3)).send(any());
