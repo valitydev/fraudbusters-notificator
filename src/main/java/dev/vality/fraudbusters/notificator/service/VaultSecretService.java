@@ -3,11 +3,11 @@ package dev.vality.fraudbusters.notificator.service;
 import dev.vality.fraudbusters.notificator.exception.SecretPathNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.vault.core.SecretNotFoundException;
 import org.springframework.vault.core.VaultTemplate;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class VaultSecretService {
 

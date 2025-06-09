@@ -36,7 +36,6 @@ public class NotificationServiceImpl implements NotificationService {
             log.info("NotificationServiceImpl skipped: {}", report);
             return;
         }
-
         Channel channel = reportModel.getChannel();
         if (channel != null && channel.getType() != null) {
             switch (channel.getType()) {
@@ -51,7 +50,6 @@ public class NotificationServiceImpl implements NotificationService {
                     report.setStatus(ReportStatus.failed);
             }
         } else {
-            // Для обратной совместимости используем email по умолчанию
             sendMail(reportModel, report);
         }
 

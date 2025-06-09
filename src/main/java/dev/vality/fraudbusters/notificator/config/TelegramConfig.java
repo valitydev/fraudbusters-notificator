@@ -14,7 +14,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 public class TelegramConfig {
 
     @Bean
-    public TelegramBotsApi telegramBotsApi(TelegramLongPollingBot telegramBot) {
+    public TelegramBotsApi telegramBotsApi(TelegramNotificationBot telegramBot) {
         try {
             var api = new TelegramBotsApi(DefaultBotSession.class);
             api.registerBot(telegramBot);

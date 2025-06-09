@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
 
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,8 @@ class QueryServiceTest {
     @MockitoBean
     WarehouseQueryService warehouseQueryService;
 
+    @MockitoBean
+    TelegramBotsApi telegramBotsApi;
 
     @Test
     void queryWithEmptyResult() {

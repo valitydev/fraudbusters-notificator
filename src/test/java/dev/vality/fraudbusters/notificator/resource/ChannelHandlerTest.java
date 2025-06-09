@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 
@@ -35,6 +36,9 @@ class ChannelHandlerTest {
 
     @MockitoBean
     VaultSecretService vaultSecretService;
+
+    @MockitoBean
+    TelegramBotsApi telegramBotsApi;
 
     @BeforeEach
     void setUp() {

@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 
@@ -51,6 +52,9 @@ public class ScheduledIntegrationTest {
 
     @MockitoBean
     VaultSecretService vaultSecretService;
+
+    @MockitoBean
+    TelegramBotsApi telegramBotsApi;
 
     @BeforeEach
     void setUp() {
