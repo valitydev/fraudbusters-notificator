@@ -1,5 +1,6 @@
 package dev.vality.fraudbusters.notificator.domain;
 
+import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Channel;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Notification;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.NotificationTemplate;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Report;
@@ -12,7 +13,8 @@ public class ReportModel {
 
     private Notification notification;
     private NotificationTemplate notificationTemplate;
-    private Report lastReport;
     private Report currentReport;
+    private Report previousReport;
+    private Channel channel;
 
 }

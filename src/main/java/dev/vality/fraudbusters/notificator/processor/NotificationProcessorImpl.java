@@ -1,10 +1,12 @@
 package dev.vality.fraudbusters.notificator.processor;
 
+import dev.vality.fraudbusters.notificator.dao.ChannelDao;
 import dev.vality.fraudbusters.notificator.dao.NotificationDao;
 import dev.vality.fraudbusters.notificator.dao.NotificationTemplateDao;
 import dev.vality.fraudbusters.notificator.dao.ReportNotificationDao;
 import dev.vality.fraudbusters.notificator.dao.domain.enums.NotificationStatus;
 import dev.vality.fraudbusters.notificator.dao.domain.enums.ReportStatus;
+import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Channel;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Notification;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.NotificationTemplate;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Report;
@@ -31,12 +33,13 @@ import java.util.function.Predicate;
 public class NotificationProcessorImpl implements NotificationProcessor {
 
     private final NotificationDao notificationDao;
-    private final ReportNotificationDao reportNotificationDao;
     private final NotificationTemplateDao notificationTemplateDao;
+    private final ReportNotificationDao reportNotificationDao;
     private final QueryService queryService;
     private final QueryResultSerde queryResultSerde;
     private final NotificationService notificationService;
     private final Predicate<ReportModel> readyForNotifyFilter;
+    private final ChannelDao channelDao;
 
     @Override
     @Scheduled(fixedDelayString = "${fixedDelay.in.milliseconds}")
@@ -57,13 +60,19 @@ public class NotificationProcessorImpl implements NotificationProcessor {
         log.info("NotificationProcessorImpl finished process");
     }
 
-    private ReportModel initReportModel(final Notification notification) {
-        Report lastReportByNotification = reportNotificationDao.getLastSendById(notification.getId());
-        NotificationTemplate notificationTemplate = notificationTemplateDao.getById(notification.getTemplateId());
+    private ReportModel initReportModel(Notification notification) {
+        Report report = new Report();
+        report.setCreatedAt(LocalDateTime.now());
+        report.setNotificationId(notification.getId());
+        report.setStatus(ReportStatus.created);
+
+        Channel channel = channelDao.getByName(notification.getChannel());
+
         return ReportModel.builder()
                 .notification(notification)
-                .notificationTemplate(notificationTemplate)
-                .lastReport(lastReportByNotification)
+                .notificationTemplate(notificationTemplateDao.getById(notification.getTemplateId()))
+                .currentReport(report)
+                .channel(channel)
                 .build();
     }
 

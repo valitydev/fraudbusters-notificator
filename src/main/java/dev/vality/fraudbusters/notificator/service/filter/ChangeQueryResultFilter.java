@@ -22,7 +22,7 @@ public class ChangeQueryResultFilter implements Predicate<ReportModel> {
 
     @Override
     public boolean test(ReportModel reportModel) {
-        Report oldReport = reportModel.getLastReport();
+        Report oldReport = reportModel.getPreviousReport();
         if (oldReport != null) {
             Optional<QueryResult> oldReportResult = queryResultSerde.deserialize(oldReport.getResult());
             Optional<QueryResult> newReportResult =

@@ -1,4 +1,4 @@
-package dev.vality.fraudbusters.notificator;
+package dev.vality.fraudbusters.notificator.utils;
 
 import dev.vality.damsel.fraudbusters_notificator.Channel;
 import dev.vality.damsel.fraudbusters_notificator.Notification;
@@ -7,11 +7,13 @@ import dev.vality.fraudbusters.notificator.dao.domain.enums.ChannelType;
 import dev.vality.fraudbusters.notificator.dao.domain.enums.NotificationStatus;
 import dev.vality.fraudbusters.notificator.dao.domain.enums.ReportStatus;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.NotificationTemplate;
+import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Report;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ChannelRecord;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationRecord;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationTemplateRecord;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ReportRecord;
 import dev.vality.fraudbusters.warehouse.Row;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -126,6 +128,30 @@ public abstract class TestObjectsFactory {
         report.setResult(randomString());
         report.setCreatedAt(LocalDateTime.now());
         return report;
+    }
+
+    public static @NotNull Report createReport() {
+        Report currentReport = new Report();
+        currentReport.setStatus(ReportStatus.created);
+        currentReport.setCreatedAt(LocalDateTime.now());
+        currentReport.setResult("test-result");
+        return currentReport;
+    }
+
+    public static @NotNull dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Notification
+                                    createNotification() {
+        dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Notification
+                notification = new dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Notification();
+        notification.setName("test-notification");
+        notification.setStatus(NotificationStatus.ACTIVE);
+        notification.setId(1L);
+        notification.setChannel("channel");
+        return notification;
+    }
+
+    public static @NotNull dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Channel createChannel() {
+        return new dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Channel("test", LocalDateTime.now(),
+                ChannelType.telegram, "test");
     }
 
 }

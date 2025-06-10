@@ -26,7 +26,7 @@ public class ReportResourceImpl implements ReportResource { // TODO забыли
     public List<Report> findReportsByStatusAndFromTime(@Validated @RequestParam("status") ReportStatus status,
                                                        @Validated @RequestParam("from")
                                                        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-                                                               LocalDateTime from) {
+                                                       LocalDateTime from) {
         List<Report> reports = reportNotificationDao.getReportsByStatusAndFromTime(status, from);
         log.info("ReportResourceImpl findReportsByStatusAndFromTime reports: {}", reports);
         return reports;

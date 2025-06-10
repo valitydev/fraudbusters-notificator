@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.notificator.service;
 
-import dev.vality.fraudbusters.notificator.TestObjectsFactory;
+import dev.vality.fraudbusters.notificator.utils.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.exception.WarehouseQueryException;
 import dev.vality.fraudbusters.warehouse.Query;
 import dev.vality.fraudbusters.warehouse.QueryServiceSrv;
@@ -11,8 +11,8 @@ import org.apache.thrift.TException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -31,12 +31,12 @@ class WarehouseQueryServiceImplTest {
     @Autowired
     private WarehouseQueryService warehouseQueryService;
 
-    @MockBean
-    private QueryServiceSrv.Iface queryService;
+    @MockitoBean
+    QueryServiceSrv.Iface queryService;
 
     @SneakyThrows
     @Test
-    void executeErrorCall() {
+    void executeErrorCall() throws TException {
 
         when(queryService.execute(any(Query.class))).thenThrow(new TException("Error"));
 
@@ -46,7 +46,7 @@ class WarehouseQueryServiceImplTest {
 
     @SneakyThrows
     @Test
-    void executeOk() {
+    void executeOk() throws TException {
         Query query = new Query();
         query.setStatement(TestObjectsFactory.randomString());
         query.setParams(Map.of(TestObjectsFactory.randomString(), TestObjectsFactory.randomString()));

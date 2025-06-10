@@ -20,21 +20,19 @@ management:
 ---
 spring:
   application:
-    name: '@project.name@'
+    name: ${project.name}
   output:
     ansi:
       enabled: always
+  flyway:
+    baseline-on-migrate: true
+    table: flyway_schema_history
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
-    url: '@db.url@'
-    username: '@db.user@'
-    password: '@db.password@'
-    hikari:
-      idle-timeout: 30000
-      maximum-pool-size: 10
-    flyway:
-      schemas: fb_notificator
+    url: ${db.url}
+    username: ${db.user}
+    password: ${db.password}
 ---
 info:
   version: '@project.version@'
@@ -72,3 +70,12 @@ warehouse:
 testcontainers:
   postgresql:
     tag: '11.4'
+
+telegram:
+  bot:
+    username: "YourBotUsername"
+    token: "YourBotUsername"
+
+vault:
+  uri: https://vault.empayre.com:443
+  token: "xxx"

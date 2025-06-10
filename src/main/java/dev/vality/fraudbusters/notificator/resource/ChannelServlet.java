@@ -2,10 +2,10 @@ package dev.vality.fraudbusters.notificator.resource;
 
 import dev.vality.damsel.fraudbusters_notificator.ChannelServiceSrv;
 import dev.vality.woody.thrift.impl.http.THServiceBuilder;
-import lombok.RequiredArgsConstructor;
-
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
+import lombok.RequiredArgsConstructor;
+
 import java.io.IOException;
 
 @WebServlet("/notification-channel/v1")

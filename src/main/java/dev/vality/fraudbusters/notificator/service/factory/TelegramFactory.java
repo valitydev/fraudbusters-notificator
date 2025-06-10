@@ -7,7 +7,6 @@ import dev.vality.fraudbusters.notificator.domain.ReportModel;
 import dev.vality.fraudbusters.notificator.utils.AttachmentsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,13 +16,10 @@ import static dev.vality.fraudbusters.notificator.utils.ChannelUtils.initRecipie
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MailFactory {
+public class TelegramFactory {
 
     private final ChannelDao channelDao;
     private final AttachmentsService attachmentUtils;
-
-    @Value("${mail.smtp.from-address}")
-    public String fromAddress;
 
     public Optional<Message> create(ReportModel reportModel) {
         String alertChannel = reportModel.getNotification().getChannel();
@@ -38,7 +34,6 @@ public class MailFactory {
                 .content(content)
                 .to(initRecipient(channel))
                 .subject(subject)
-                .from(fromAddress)
                 .attachment(attachmentUtils.initAttachment(reportModel, subject))
                 .build());
     }

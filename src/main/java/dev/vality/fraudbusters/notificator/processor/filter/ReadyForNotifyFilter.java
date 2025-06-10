@@ -20,7 +20,7 @@ public class ReadyForNotifyFilter implements Predicate<ReportModel> {
     @Override
     public boolean test(ReportModel reportModel) {
         Notification notification = reportModel.getNotification();
-        Report lastReportByNotification = reportModel.getLastReport();
+        Report lastReportByNotification = reportModel.getPreviousReport();
         if (lastReportByNotification == null) {
             return true;
         }

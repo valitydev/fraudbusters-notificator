@@ -1,8 +1,8 @@
 package dev.vality.fraudbusters.notificator.dao;
 
-import dev.vality.mapper.RecordRowMapper;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.NotificationTemplate;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationTemplateRecord;
+import dev.vality.mapper.RecordRowMapper;
 import org.jooq.SelectConditionStep;
 import org.jooq.SelectWhereStep;
 import org.springframework.jdbc.core.RowMapper;

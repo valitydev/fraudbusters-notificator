@@ -1,19 +1,24 @@
 package dev.vality.fraudbusters.notificator.resource;
 
 import dev.vality.damsel.fraudbusters_notificator.*;
-import dev.vality.fraudbusters.notificator.TestObjectsFactory;
-import dev.vality.fraudbusters.notificator.config.PostgresqlSpringBootITest;
+import dev.vality.fraudbusters.notificator.utils.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationRecord;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationTemplateRecord;
 import dev.vality.fraudbusters.notificator.exception.WarehouseQueryException;
 import dev.vality.fraudbusters.notificator.service.QueryService;
+import dev.vality.fraudbusters.notificator.service.VaultSecretService;
+import dev.vality.testcontainers.annotations.postgresql.PostgresqlTestcontainer;
 import org.apache.thrift.TException;
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +34,12 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ActiveProfiles("test")
-@PostgresqlSpringBootITest
+@PostgresqlTestcontainer
+@SpringBootTest
 class NotificationHandlerTest {
+
+    @Container
+    static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer<>("postgres:14-alpine");
 
     @Autowired
     private NotificationHandler notificationHandler;
@@ -38,11 +47,15 @@ class NotificationHandlerTest {
     @Autowired
     private DSLContext dslContext;
 
-    @MockBean
-    private QueryService queryService;
+    @MockitoBean
+    QueryService queryService;
+
+    @MockitoBean
+    VaultSecretService vaultSecretService;
 
     @BeforeEach
     void setUp() {
+        Mockito.when(vaultSecretService.getBotToken()).thenReturn("test");
         dslContext.deleteFrom(NOTIFICATION).execute();
     }
 

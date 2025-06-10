@@ -1,7 +1,9 @@
-package dev.vality.fraudbusters.notificator.service;
+package dev.vality.fraudbusters.notificator.service.sender;
 
 import dev.vality.fraudbusters.notificator.domain.Message;
 import dev.vality.fraudbusters.notificator.service.iface.MailSenderService;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ByteArrayResource;
@@ -11,8 +13,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;

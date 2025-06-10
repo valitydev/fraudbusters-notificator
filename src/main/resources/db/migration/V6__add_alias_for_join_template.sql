@@ -1,19 +1,19 @@
 UPDATE
     fb_notificator.notification_template
-set query_text =  'SELECT t, shopId, currency, sm_ref AS refund, sm_all AS payment, sm_ref * 100 / sm_all AS metric ' ||
-                  'FROM ( SELECT timestamp AS t, shopId, currency, sum(amount / 100) AS sm_ref ' ||
-                  'FROM fraud.refund ' ||
-                  'WHERE :currentDate <= timestamp AND status = ''succeeded'' AND shopId != ''TEST'' ' ||
-                  'GROUP BY t, currency, shopId) as refunds_sum ' ||
-                  'ANY LEFT JOIN ( SELECT timestamp AS t, shopId, currency, sum(amount / 100) AS sm_all ' ||
-                  'FROM fraud.payment ' ||
-                  'WHERE :currentDate <= timestamp AND status = ''captured'' AND shopId != ''TEST'' ' ||
-                  'GROUP BY t, currency, shopId ' ||
-                  'HAVING (sm_all > 100000 AND currency = ''RUB'') OR (sm_all > 1500 AND currency = ''USD'') ' ||
-                  'OR (sm_all > 1500 AND currency = ''EUR'')) as payments_sum ' ||
-                  'USING (t, shopId, currency) ' ||
-                  'WHERE sm_all > 0 AND metric > 10 ' ||
-                  'ORDER BY t DESC'
+set query_text = 'SELECT t, shopId, currency, sm_ref AS refund, sm_all AS payment, sm_ref * 100 / sm_all AS metric ' ||
+                 'FROM ( SELECT timestamp AS t, shopId, currency, sum(amount / 100) AS sm_ref ' ||
+                 'FROM fraud.refund ' ||
+                 'WHERE :currentDate <= timestamp AND status = ''succeeded'' AND shopId != ''TEST'' ' ||
+                 'GROUP BY t, currency, shopId) as refunds_sum ' ||
+                 'ANY LEFT JOIN ( SELECT timestamp AS t, shopId, currency, sum(amount / 100) AS sm_all ' ||
+                 'FROM fraud.payment ' ||
+                 'WHERE :currentDate <= timestamp AND status = ''captured'' AND shopId != ''TEST'' ' ||
+                 'GROUP BY t, currency, shopId ' ||
+                 'HAVING (sm_all > 100000 AND currency = ''RUB'') OR (sm_all > 1500 AND currency = ''USD'') ' ||
+                 'OR (sm_all > 1500 AND currency = ''EUR'')) as payments_sum ' ||
+                 'USING (t, shopId, currency) ' ||
+                 'WHERE sm_all > 0 AND metric > 10 ' ||
+                 'ORDER BY t DESC'
 where name = 'refund-by-captured';
 
 UPDATE
