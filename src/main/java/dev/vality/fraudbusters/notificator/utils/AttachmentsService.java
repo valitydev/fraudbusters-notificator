@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AttachmentUtils {
+public class AttachmentsService {
 
     private final QueryResultSerde queryResultSerde;
     private final AttachmentFactory attachmentFactory;

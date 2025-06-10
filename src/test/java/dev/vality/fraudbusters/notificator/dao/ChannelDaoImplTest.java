@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.notificator.dao;
 
-import dev.vality.fraudbusters.notificator.TestObjectsFactory;
+import dev.vality.fraudbusters.notificator.utils.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Channel;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ChannelRecord;
 import dev.vality.fraudbusters.notificator.service.VaultSecretService;

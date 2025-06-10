@@ -1,7 +1,7 @@
 package dev.vality.fraudbusters.notificator.processor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.vality.fraudbusters.notificator.TestObjectsFactory;
+import dev.vality.fraudbusters.notificator.utils.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.dao.domain.enums.ReportStatus;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ChannelRecord;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationRecord;

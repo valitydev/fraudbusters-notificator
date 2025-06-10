@@ -4,7 +4,7 @@ import dev.vality.fraudbusters.notificator.dao.ChannelDao;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Channel;
 import dev.vality.fraudbusters.notificator.domain.Message;
 import dev.vality.fraudbusters.notificator.domain.ReportModel;
-import dev.vality.fraudbusters.notificator.utils.AttachmentUtils;
+import dev.vality.fraudbusters.notificator.utils.AttachmentsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +20,7 @@ import static dev.vality.fraudbusters.notificator.utils.ChannelUtils.initRecipie
 public class MailFactory {
 
     private final ChannelDao channelDao;
-    private final AttachmentUtils attachmentUtils;
+    private final AttachmentsService attachmentUtils;
 
     @Value("${mail.smtp.from-address}")
     public String fromAddress;

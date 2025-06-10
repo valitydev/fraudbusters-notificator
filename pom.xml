@@ -31,7 +31,7 @@
         <db.common.lib.version>0.0.2-SNAPSHOT</db.common.lib.version>
         <shedlock-provider-jdbc-template.version>4.24.0</shedlock-provider-jdbc-template.version>
         <warehouse.proto.version>1.12-afdcd48</warehouse.proto.version>
-        <fraudbusters.notificator.proto.version>1.27-4907168</fraudbusters.notificator.proto.version>
+        <fraudbusters.notificator.proto.version>1.32-f477853</fraudbusters.notificator.proto.version>
     </properties>
 
     <dependencies>
@@ -177,11 +177,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

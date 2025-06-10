@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.notificator.service;
 
-import dev.vality.fraudbusters.notificator.TestObjectsFactory;
+import dev.vality.fraudbusters.notificator.utils.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.exception.WarehouseQueryException;
 import dev.vality.fraudbusters.warehouse.Query;
 import dev.vality.fraudbusters.warehouse.QueryServiceSrv;
@@ -36,7 +36,7 @@ class WarehouseQueryServiceImplTest {
 
     @SneakyThrows
     @Test
-    void executeErrorCall() {
+    void executeErrorCall() throws TException {
 
         when(queryService.execute(any(Query.class))).thenThrow(new TException("Error"));
 
@@ -46,7 +46,7 @@ class WarehouseQueryServiceImplTest {
 
     @SneakyThrows
     @Test
-    void executeOk() {
+    void executeOk() throws TException {
         Query query = new Query();
         query.setStatement(TestObjectsFactory.randomString());
         query.setParams(Map.of(TestObjectsFactory.randomString(), TestObjectsFactory.randomString()));

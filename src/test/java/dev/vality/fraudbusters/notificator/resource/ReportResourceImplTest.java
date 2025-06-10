@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.notificator.resource;
 
-import dev.vality.fraudbusters.notificator.TestObjectsFactory;
+import dev.vality.fraudbusters.notificator.utils.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.dao.domain.enums.ReportStatus;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ReportRecord;
 import dev.vality.testcontainers.annotations.postgresql.PostgresqlTestcontainer;

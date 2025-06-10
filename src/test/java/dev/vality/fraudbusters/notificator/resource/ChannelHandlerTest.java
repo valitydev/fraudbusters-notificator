@@ -1,7 +1,7 @@
 package dev.vality.fraudbusters.notificator.resource;
 
 import dev.vality.damsel.fraudbusters_notificator.*;
-import dev.vality.fraudbusters.notificator.TestObjectsFactory;
+import dev.vality.fraudbusters.notificator.utils.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ChannelRecord;
 import dev.vality.fraudbusters.notificator.service.VaultSecretService;
 import dev.vality.testcontainers.annotations.postgresql.PostgresqlTestcontainer;

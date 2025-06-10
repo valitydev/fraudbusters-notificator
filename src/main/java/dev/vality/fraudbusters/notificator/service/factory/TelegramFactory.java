@@ -4,7 +4,7 @@ import dev.vality.fraudbusters.notificator.dao.ChannelDao;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Channel;
 import dev.vality.fraudbusters.notificator.domain.Message;
 import dev.vality.fraudbusters.notificator.domain.ReportModel;
-import dev.vality.fraudbusters.notificator.utils.AttachmentUtils;
+import dev.vality.fraudbusters.notificator.utils.AttachmentsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import static dev.vality.fraudbusters.notificator.utils.ChannelUtils.initRecipie
 public class TelegramFactory {
 
     private final ChannelDao channelDao;
-    private final AttachmentUtils attachmentUtils;
+    private final AttachmentsService attachmentUtils;
 
     public Optional<Message> create(ReportModel reportModel) {
         String alertChannel = reportModel.getNotification().getChannel();

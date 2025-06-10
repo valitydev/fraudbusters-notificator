@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.notificator.service;
 
-import dev.vality.fraudbusters.notificator.TestObjectsFactory;
+import dev.vality.fraudbusters.notificator.utils.TestObjectsFactory;
 import dev.vality.fraudbusters.warehouse.Query;
 import dev.vality.fraudbusters.warehouse.Result;
 import dev.vality.fraudbusters.warehouse.Row;

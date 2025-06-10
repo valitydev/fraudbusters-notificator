@@ -1,7 +1,7 @@
 package dev.vality.fraudbusters.notificator.resource;
 
 import dev.vality.damsel.fraudbusters_notificator.*;
-import dev.vality.fraudbusters.notificator.TestObjectsFactory;
+import dev.vality.fraudbusters.notificator.utils.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationRecord;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.NotificationTemplateRecord;
 import dev.vality.fraudbusters.notificator.exception.WarehouseQueryException;
