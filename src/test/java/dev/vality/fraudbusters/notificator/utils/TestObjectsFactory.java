@@ -138,7 +138,8 @@ public abstract class TestObjectsFactory {
         return currentReport;
     }
 
-    public static @NotNull dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Notification createNotification() {
+    public static @NotNull dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Notification
+    createNotification() {
         dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Notification
                 notification = new dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Notification();
         notification.setName("test-notification");
