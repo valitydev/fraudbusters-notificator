@@ -1,7 +1,6 @@
 package dev.vality.fraudbusters.notificator.service;
 
 import dev.vality.fraudbusters.notificator.AbstractIntegrationTest;
-import dev.vality.fraudbusters.notificator.utils.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.config.TelegramNotificationBot;
 import dev.vality.fraudbusters.notificator.dao.ChannelDao;
 import dev.vality.fraudbusters.notificator.dao.ReportNotificationDao;
@@ -11,6 +10,7 @@ import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.NotificationT
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Report;
 import dev.vality.fraudbusters.notificator.domain.ReportModel;
 import dev.vality.fraudbusters.notificator.service.iface.NotificationService;
+import dev.vality.fraudbusters.notificator.utils.TestObjectsFactory;
 import dev.vality.fraudbusters.warehouse.Row;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ class TelegramNotificationIntegrationTest extends AbstractIntegrationTest {
     @BeforeEach
     void setUp() {
         when(vaultSecretService.getBotToken()).thenReturn("test-bot-token");
-        when(channelDao.getByName(any())).thenReturn(createChannel());
+        when(channelDao.getByName(any())).thenReturn(TestObjectsFactory.createChannel());
     }
 
     @Test
