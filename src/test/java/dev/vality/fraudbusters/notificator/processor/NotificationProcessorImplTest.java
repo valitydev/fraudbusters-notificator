@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.notificator.processor;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import dev.vality.fraudbusters.notificator.utils.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.dao.domain.enums.ReportStatus;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.records.ChannelRecord;
@@ -42,7 +42,7 @@ public class NotificationProcessorImplTest {
     @Autowired
     private DSLContext dslContext;
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    JsonMapper objectMapper = JsonMapper.builder().configureForJackson2().build();
 
     @MockitoBean
     MailSenderService mailSenderService;

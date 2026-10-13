@@ -1,7 +1,7 @@
 package dev.vality.fraudbusters.notificator.serializer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 import dev.vality.fraudbusters.notificator.domain.QueryResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class QueryResultSerde {
 
-    private final ObjectMapper objectMapper;
+    private final JsonMapper objectMapper;
 
     public String serialize(List<Map<String, String>> queryResult) {
         log.debug("QueryResultSerde serialize queryResult: {}", queryResult);
@@ -24,7 +24,7 @@ public class QueryResultSerde {
             QueryResult result = new QueryResult();
             result.setResults(queryResult);
             return objectMapper.writeValueAsString(result);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             log.error("QueryResultSerde error when serialize queryResult: {} e:", queryResult, e);
         }
         return "";
@@ -34,7 +34,7 @@ public class QueryResultSerde {
         log.debug("QueryResultSerde deserialize string: {}", string);
         try {
             return Optional.ofNullable(objectMapper.readValue(string, QueryResult.class));
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             log.error("QueryResultSerde error when deserialize string: {} e:", string, e);
         }
         return Optional.empty();
