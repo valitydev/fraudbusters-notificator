@@ -1,6 +1,6 @@
 package dev.vality.fraudbusters.notificator.service.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import dev.vality.fraudbusters.notificator.utils.TestObjectsFactory;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Notification;
 import dev.vality.fraudbusters.notificator.dao.domain.tables.pojos.Report;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ChangeQueryResultFilterTest {
 
     ChangeQueryResultFilter changeQueryResultFilter =
-            new ChangeQueryResultFilter(new QueryResultSerde(new ObjectMapper()));
+            new ChangeQueryResultFilter(new QueryResultSerde(JsonMapper.builder().build()));
 
     @Test
     void testFilterFalse() {
