@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ChangeQueryResultFilterTest {
 
     ChangeQueryResultFilter changeQueryResultFilter =
-            new ChangeQueryResultFilter(new QueryResultSerde(JsonMapper.builder().configureForJackson2().build()));
+            new ChangeQueryResultFilter(new QueryResultSerde(JsonMapper.builder().build()));
 
     @Test
     void testFilterFalse() {

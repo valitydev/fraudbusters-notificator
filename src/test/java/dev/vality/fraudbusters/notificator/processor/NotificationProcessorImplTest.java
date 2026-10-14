@@ -42,7 +42,7 @@ public class NotificationProcessorImplTest {
     @Autowired
     private DSLContext dslContext;
 
-    JsonMapper objectMapper = JsonMapper.builder().configureForJackson2().build();
+    JsonMapper objectMapper = JsonMapper.builder().build();
 
     @MockitoBean
     MailSenderService mailSenderService;

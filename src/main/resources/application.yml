@@ -79,5 +79,3 @@ telegram:
 vault:
   uri: https://vault.empayre.com:443
   token: "xxx"
-
-spring.jackson.use-jackson2-defaults: true
